@@ -21,7 +21,7 @@ const routes = [
     component: DashboardPanel
   },
   {
-    path: '/chatbot',
+    path: '/chatbot-management',
     component: ChatbotManagement
   },
   {

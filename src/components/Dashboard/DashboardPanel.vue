@@ -6,21 +6,22 @@
         <h2>Dashboard Menu</h2>
       </div>
       <div class="sidebar-links">
-        <router-link to="/chatbot">Chatbot Management</router-link>
-        <router-link to="/conversation-rules">Conversation Rules</router-link>
-        <router-link to="/pdf-integration">PDF Integration</router-link>
-        <router-link to="/settings">Settings</router-link>
+        <button @click="loadScreen('Chatbot Management')">Chatbot Management</button>
+        <button @click="loadScreen('Conversation Rules')">Conversation Rules</button>
+        <button @click="loadScreen('PDF Integration')">PDF Integration</button>
+        <!-- <button @click="loadScreen('Settings')">Settings</button> -->
       </div>
     </div>
 
     <!-- Main content -->
     <div class="main-content">
-      <h1>Welcome to the Dashboard</h1>
+      <h1 class="neon-text">Welcome to the Dashboard</h1>
       <div class="user-info">
-        <p>Logged in as: {{ currentUser.name }}</p>
-        <button @click="logout">Logout</button>
+        <p class="neon-text">Logged in as: {{ currentUser.name }}</p>
+        <button class="logout-btn" @click="logout">Logout</button>
       </div>
-      <!-- Your main content here -->
+      <!-- Router view for dynamic content -->
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -40,6 +41,10 @@ export default {
       console.log('Logging out...');
       // Redirect to login page after logout
       this.$router.push('/login');
+    },
+    loadScreen(screen) {
+      // Navigate to the selected screen
+      this.$router.push(`/${screen.toLowerCase().replace(/\s/g, '-')}`);
     }
   }
 };
@@ -55,26 +60,31 @@ export default {
 
 .sidebar {
   flex: 1;
-  background-color: #f8f9fa;
+  background: linear-gradient(to right, #4a90e2, #4682b4); /* Modern gradient background */
   padding: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+  border-radius: 10px;
 }
 
 .sidebar-header {
   margin-bottom: 20px;
 }
 
-.sidebar-links a {
+.sidebar-links button {
   display: block;
   padding: 10px;
   border-radius: 5px;
-  background-color: #007bff;
+  background-color: #007bff; /* Neon blue color for buttons */
   color: #fff;
   margin-bottom: 10px;
-  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 0px 15px rgba(0, 123, 255, 0.4); /* Neon blue glow effect */
+  transition: box-shadow 0.3s ease-in-out;
 }
 
-.sidebar-links a:hover {
-  background-color: #0056b3;
+.sidebar-links button:hover {
+  box-shadow: 0px 0px 20px rgba(0, 123, 255, 0.7); /* Enhanced glow on hover */
 }
 
 .main-content {
@@ -82,16 +92,32 @@ export default {
   padding: 20px;
 }
 
-.user-info button {
-  background-color: #dc3545;
+.neon-text {
+  font-size: 2.5rem;
+  color: #fff; /* Neon text color */
+  text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5); /* Neon text glow effect */
+}
+
+.user-info {
+  margin-top: 20px;
+}
+
+.user-info p {
+  font-size: 1.2rem;
+  color: #fff; /* Neon text color */
+}
+
+.logout-btn {
+  background-color: #dc3545; /* Neon red color for logout button */
   color: #fff;
   padding: 8px 12px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
-.user-info button:hover {
-  background-color: #c82333;
+.logout-btn:hover {
+  background-color: #c82333; /* Darker red on hover */
 }
 </style>
